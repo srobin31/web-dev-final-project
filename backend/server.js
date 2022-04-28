@@ -16,13 +16,14 @@ let sess = {
   secret: process.env.SECRET || "SECRET",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, sameSite: "none" },
+  cookie: { secure: false },
 };
 
 let cors_origin = "http://localhost:3000";
 if (process.env.ENV === "production") {
   app.set("trust proxy", 1);
   sess.cookie.secure = true;
+  sess.cookie.sameSite = "none";
   cors_origin = "https://dazzling-mochi-cdc080.netlify.app";
 }
 
