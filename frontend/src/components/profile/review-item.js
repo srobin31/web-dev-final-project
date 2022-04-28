@@ -33,7 +33,8 @@ const ReviewItem = ({ profile, review }) => {
       <div className="col-xl-3 col-lg-4 col-md-6 col-xs-12 d-xs-flex mb-4">
         <div className="card">
           <div className="card-header">
-            <h4 className="mb-0">{details.name}</h4>
+            <h4 className="mb-0 d-xl-none">{details.name}</h4>
+            <h5 className="mb-0 d-none d-xl-block">{details.name}</h5>
           </div>
           <Link to={`/details/${review.drinkId}`} state={{ fromSearch: false }}>
             <img
