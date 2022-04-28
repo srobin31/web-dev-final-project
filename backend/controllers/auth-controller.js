@@ -37,6 +37,8 @@ const login = async (req, res) => {
   if (match) {
     existingUser.password = "";
     req.session["profile"] = existingUser;
+    console.log("login");
+    console.log(req.session["profile"]);
     res.json(existingUser);
   } else {
     res.sendStatus(403);
@@ -49,6 +51,8 @@ const logout = (req, res) => {
 };
 
 const profile = (req, res) => {
+  console.log("profile");
+  console.log(req.session["profile"]);
   res.json(req.session["profile"]);
 };
 
