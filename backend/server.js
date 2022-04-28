@@ -15,7 +15,7 @@ let sess = {
   secret: process.env.SECRET || "SECRET",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false },
+  // cookie: { secure: false },
 };
 
 let cors_origin = "http://localhost:3000";
