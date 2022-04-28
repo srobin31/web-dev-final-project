@@ -28,11 +28,8 @@ const Profile = () => {
   }, [stateProfile]);
 
   useEffect(() => {
-    console.log(profile);
-    console.log(profileFetched);
     if (!profile && profileFetched) {
-      // navigate("/login");
-      console.log("not signed in");
+      navigate("/login");
     }
   }, [profile, profileFetched, navigate]);
 

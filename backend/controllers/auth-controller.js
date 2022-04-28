@@ -49,8 +49,6 @@ const logout = (req, res) => {
 };
 
 const profile = (req, res) => {
-  console.log("profile");
-  console.log(req.session["profile"]);
   res.json(req.session["profile"]);
 };
 

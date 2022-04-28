@@ -15,8 +15,6 @@ export const registerUser = async (dispatch, user) => {
 
 export const loginUser = async (dispatch, user) => {
   const loggedInUser = await auth.login(user);
-  console.log("login");
-  console.log(loggedInUser);
   dispatch({
     type: LOGIN_USER,
     loggedInUser,
@@ -33,8 +31,6 @@ export const logoutUser = async (dispatch, user) => {
 
 export const getProfile = async (dispatch) => {
   const profile = await auth.profile();
-  console.log("actions");
-  console.log(profile);
   dispatch({
     type: GET_PROFILE,
     profile,
