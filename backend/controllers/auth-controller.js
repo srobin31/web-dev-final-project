@@ -30,7 +30,10 @@ const login = async (req, res) => {
   const email = user.email;
   const password = user.password;
   const existingUser = await userModel.findUserByEmail(email);
-  const match = await bcrypt.compare(password, existingUser.password);
+  let match;
+  if (existingUser) {
+    match = await bcrypt.compare(password, existingUser.password);
+  }
   if (match) {
     existingUser.password = "";
     req.session["profile"] = existingUser;
