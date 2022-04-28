@@ -15,6 +15,8 @@ export const registerUser = async (dispatch, user) => {
 
 export const loginUser = async (dispatch, user) => {
   const loggedInUser = await auth.login(user);
+  console.log("login");
+  console.log(loggedInUser);
   dispatch({
     type: LOGIN_USER,
     loggedInUser,
