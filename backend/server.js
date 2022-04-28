@@ -23,7 +23,7 @@ if (process.env.ENV === "production") {
 }
 
 app.use(session(sess));
-app.use(cors({ credentials: true, origin: "https://dazzling-mochi-cdc080.netlify.app/" }));
+app.use(cors({ credentials: true, origin: "https://dazzling-mochi-cdc080.netlify.app" }));
 app.use(express.json());
 
 authController(app);
