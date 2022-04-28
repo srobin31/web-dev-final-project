@@ -6,8 +6,7 @@ import session from "express-session";
 import authController from "./controllers/auth-controller.js";
 import ratingsController from "./controllers/ratings-controller.js";
 
-const CONNECTION_STRING =
-  process.env.DB_CONNECTION_STRING || "mongodb://localhost:27017/webdev";
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://localhost:27017/webdev";
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
@@ -24,7 +23,7 @@ if (process.env.ENV === "production") {
 }
 
 app.use(session(sess));
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "https://dazzling-mochi-cdc080.netlify.app/" }));
 app.use(express.json());
 
 authController(app);
