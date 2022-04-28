@@ -7,7 +7,10 @@ import { loginUser } from "../../actions/auth-actions";
 import Nav from "../home/nav";
 
 export const Login = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();

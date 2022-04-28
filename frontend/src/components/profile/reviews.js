@@ -31,7 +31,7 @@ const ReviewedDrinks = ({ profile }) => {
         renderReviewedItems()
       ) : (
         <h6>
-          No drinks reviews found! Search for drinks <Link to="/">here</Link>!
+          No drinks reviews found. Search for drinks <Link to="/">here</Link>!
         </h6>
       )}
     </div>

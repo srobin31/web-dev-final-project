@@ -46,7 +46,7 @@ const Profile = () => {
           <div className="col-12">
             {profile && (
               <h4 className="text-warning">
-                Member since {renderDateStr(profile.date)}
+                Member since {renderDateStr(profile.registerDate)}
               </h4>
             )}
           </div>
