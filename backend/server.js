@@ -17,13 +17,16 @@ let sess = {
   saveUninitialized: true,
   cookie: { secure: false },
 };
+
+let cors_origin = "http://localhost:3000";
 if (process.env.ENV === "production") {
   app.set("trust proxy", 1);
   sess.cookie.secure = true;
+  cors_origin = "https://dazzling-mochi-cdc080.netlify.app"
 }
 
 app.use(session(sess));
-app.use(cors({ credentials: true, origin: "https://dazzling-mochi-cdc080.netlify.app" }));
+app.use(cors({ credentials: true, origin: cors_origin }));
 app.use(express.json());
 
 authController(app);
