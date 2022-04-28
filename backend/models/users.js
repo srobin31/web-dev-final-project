@@ -16,7 +16,11 @@ const usersSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    date: {
+    dob: {
+      type: Date,
+      required: true,
+    },
+    registerDate: {
       type: Date,
       default: Date.now,
     },
