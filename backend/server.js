@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
-import session from "express-session";
+import session from "cookie-session";
 
 import authController from "./controllers/auth-controller.js";
 import ratingsController from "./controllers/ratings-controller.js";
@@ -20,7 +20,7 @@ let sess = {
 
 let cors_origin = "http://localhost:3000";
 if (process.env.ENV === "production") {
-  app.set("trust proxy", true);
+  app.set("trust proxy", 1);
   sess.cookie.secure = true;
   cors_origin = "https://dazzling-mochi-cdc080.netlify.app"
 }
