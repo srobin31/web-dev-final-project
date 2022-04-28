@@ -39,7 +39,6 @@ const login = async (req, res) => {
     req.session["profile"] = existingUser;
     console.log("login");
     console.log(req.session["profile"]);
-    req.session.save();
     res.json(existingUser);
   } else {
     res.sendStatus(403);
