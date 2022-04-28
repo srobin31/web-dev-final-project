@@ -31,6 +31,8 @@ export const logoutUser = async (dispatch, user) => {
 
 export const getProfile = async (dispatch) => {
   const profile = await auth.profile();
+  console.log("actions");
+  console.log(profile);
   dispatch({
     type: GET_PROFILE,
     profile,
