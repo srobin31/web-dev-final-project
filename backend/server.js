@@ -12,17 +12,18 @@ mongoose.connect(CONNECTION_STRING);
 const app = express();
 
 let sess = {
+  name: "MySession",
   secret: process.env.SECRET || "SECRET",
   resave: false,
   saveUninitialized: true,
-  // cookie: { secure: false },
+  cookie: { secure: false, sameSite: "none" },
 };
 
 let cors_origin = "http://localhost:3000";
 if (process.env.ENV === "production") {
   app.set("trust proxy", 1);
-  // sess.cookie.secure = true;
-  cors_origin = "https://dazzling-mochi-cdc080.netlify.app"
+  sess.cookie.secure = true;
+  cors_origin = "https://dazzling-mochi-cdc080.netlify.app";
 }
 
 app.use(session(sess));
