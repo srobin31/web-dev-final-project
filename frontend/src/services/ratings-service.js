@@ -25,3 +25,13 @@ export const updateRating = async (rating) => {
   const response = api.put(RATINGS_API, rating);
   return response.data;
 };
+
+export const getMostPopularUsers = async () => {
+  const response = await api.get(`${API_BASE}/mostOccurringUsers`);
+  return response.data;
+}
+
+export const getMostRecentReviews = async (userId) => {
+  const response = await api.get(`${API_BASE}/recent/${userId}`);
+  return response.data;
+}
