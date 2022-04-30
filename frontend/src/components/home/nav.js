@@ -24,7 +24,7 @@ const Nav = ({ active = "" }) => {
 
   const logout = async () => {
     await logoutUser(dispatch, profile);
-    if (location.pathname === "/profile") {
+    if (location && location.pathname === "/profile") {
       navigate("/login");
     } else {
       window.location.reload();
