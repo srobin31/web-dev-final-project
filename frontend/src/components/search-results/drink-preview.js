@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import DrinkRating from "./rating";
+import StarRating from "../star-scale/rating";
 
 const DrinkPreview = ({ drink, profile }) => {
   return (
@@ -28,7 +28,9 @@ const DrinkPreview = ({ drink, profile }) => {
         </div>
         {profile && (
           <div className="card-footer bg-transparent text-center">
-            <DrinkRating drink={drink} profile={profile} />
+            <div className="d-block">
+              <StarRating drink={drink} profile={profile} />
+            </div>
           </div>
         )}
       </div>
