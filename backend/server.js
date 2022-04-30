@@ -5,6 +5,7 @@ import session from "express-session";
 
 import authController from "./controllers/auth-controller.js";
 import ratingsController from "./controllers/ratings-controller.js";
+import usersController from "./controllers/users-controller.js";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://localhost:27017/webdev";
 mongoose.connect(CONNECTION_STRING);
@@ -33,5 +34,6 @@ app.use(express.json());
 
 authController(app);
 ratingsController(app);
+usersController(app);
 
 app.listen(process.env.PORT || 4000);

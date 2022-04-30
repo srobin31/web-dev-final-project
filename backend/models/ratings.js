@@ -31,7 +31,7 @@ export const findUserDrinkRating = (userId, drinkId) =>
 export const findAllUserRatings = (userId) =>
   ratingsModel.find({ userId: userId }).sort({ date: -1 });
 export const findAllDrinkRatings = (drinkId) =>
-  ratingsModel.find({ drinkId: drinkId });
+  ratingsModel.find({ drinkId: drinkId }).sort({ date: -1 });
 
 export const updateRating = (userId, drinkId, newRating) =>
   ratingsModel.updateOne(
@@ -39,3 +39,13 @@ export const updateRating = (userId, drinkId, newRating) =>
     { $set: { score: newRating, date: new Date() } },
     { upsert: true }
   );
+
+export const findMostOccurringUsers = () =>
+  ratingsModel.aggregate([
+    { $group: { _id: "$userId", count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+    { $limit: 3 },
+  ]);
+
+export const findMostRecentReviews = (userId) =>
+  ratingsModel.find({ userId: userId }).sort({ date: -1 }).limit(3);

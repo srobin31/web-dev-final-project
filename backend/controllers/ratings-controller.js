@@ -4,6 +4,8 @@ const ratingsController = (app) => {
   app.get("/api/ratings/:uid/:did", findUserDrinkRating);
   app.get("/api/ratings/:id", findAllRatings);
   app.put("/api/ratings", updateRating);
+  app.get("/api/mostOccurringUsers", findMostOccurringUsers);
+  app.get("/api/recent/:uid", findMostRecentReviews);
 };
 
 const findUserDrinkRating = async (req, res) => {
@@ -31,6 +33,17 @@ const updateRating = async (req, res) => {
   const updatedScore = rating.score;
   const status = await ratingsModel.updateRating(userId, drinkId, updatedScore);
   res.json(status);
+};
+
+const findMostOccurringUsers = async (req, res) => {
+  const users = await ratingsModel.findMostOccurringUsers();
+  res.json(users);
+};
+
+const findMostRecentReviews = async (req, res) => {
+  const userId = req.params.uid;
+  const reviews = await ratingsModel.findMostRecentReviews(userId);
+  res.json(reviews);
 };
 
 export default ratingsController;
