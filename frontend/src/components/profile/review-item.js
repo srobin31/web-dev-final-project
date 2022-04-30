@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { cocktailLookup } from "../../actions/api-actions";
 import { renderDateStr } from "../../utils/date";
 
-import DrinkRating from "../search-results/rating";
+import StarRating from "../star-scale/rating";
 
 const ReviewItem = ({ profile, review }) => {
   const drinkDetails = useSelector((state) => state.api.details);
@@ -53,7 +53,9 @@ const ReviewItem = ({ profile, review }) => {
             </Link>
           </div>
           <div className="card-footer bg-transparent text-center">
-            <DrinkRating drink={details} profile={profile} />
+            <div className="d-block">
+              <StarRating drink={details} profile={profile} />
+            </div>
             <h6 className="mt-2">Reviewed on {renderDateStr(review.date)}</h6>
           </div>
         </div>
