@@ -5,7 +5,7 @@ import {
   updateRating,
 } from "../../services/ratings-service";
 
-const DrinkRating = ({ drink, profile }) => {
+const StarRating = ({ drink, profile }) => {
   const [rating, setRating] = useState({
     userId: profile._id,
     drinkId: drink.id,
@@ -33,31 +33,19 @@ const DrinkRating = ({ drink, profile }) => {
     fetchRating();
   });
 
-  const renderStar = (score, lit) => {
+  const renderStar = (pos, lit) => {
     const style = lit ? "fas text-warning" : "far text-muted";
     return (
       <i
-        key={score}
+        key={pos}
         className={`${style} fa-star fa-2x px-1`}
         role="button"
-        onClick={() => handleRatingChange(score)}
+        onClick={() => handleRatingChange(pos)}
       ></i>
     );
   };
 
-  const renderRating = () => {
-    const starsArr = [];
-    for (let i = 1; i <= 5; i++) {
-      starsArr.push(renderStar(i, i <= rating.score));
-    }
-    return starsArr;
-  };
-
-  return (
-    <>
-      <div className="d-block">{renderRating()}</div>
-    </>
-  );
+  return [1, 2, 3, 4, 5].map((i) => renderStar(i, i <= rating.score));
 };
 
-export default DrinkRating;
+export default StarRating;
