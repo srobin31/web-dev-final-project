@@ -4,9 +4,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { getProfile } from "../../actions/auth-actions";
 import { cocktailLookup } from "../../actions/api-actions";
+import { getAllDrinkRatings } from "../../services/ratings-service";
+import { getUserFullName } from "../../services/users-service";
 
-import DrinkRating from "../search-results/rating";
 import Nav from "../home/nav";
+import StarRating from "../star-scale/rating";
+import DrinkReview from "./review";
 
 const DrinkDetails = () => {
   const stateProfile = useSelector((state) => state.auth.profile);
@@ -15,6 +18,7 @@ const DrinkDetails = () => {
 
   const [profile, setProfile] = useState(stateProfile);
   const [details, setDetails] = useState();
+  const [allReviews, setAllReviews] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -51,6 +55,27 @@ const DrinkDetails = () => {
     }
   }, [drinkDetails, params.did]);
 
+  useEffect(() => {
+    const fetchAllDrinkRatings = async () => {
+      let ratings = await getAllDrinkRatings(params.did);
+      if (ratings) {
+        if (profile) {
+          ratings = ratings.filter((rating) => rating.userId !== profile._id);
+        }
+        const ratingDetails = await Promise.all(
+          ratings.map(async (rating) => {
+            const userFullName = await getUserFullName(rating.userId).then(
+              (res) => res.fullName
+            );
+            return { ...rating, userFullName: userFullName };
+          })
+        ).then((res) => res);
+        setAllReviews(ratingDetails);
+      }
+    };
+    fetchAllDrinkRatings();
+  }, [profile, params.did]);
+
   function renderIngredients() {
     return (
       <ul className="list-group mb-2">
@@ -79,7 +104,7 @@ const DrinkDetails = () => {
     <>
       <Nav />
       <div className="container mt-4">
-        {location.state.fromSearch && (
+        {location.state && location.state.fromSearch && (
           <div className="row mb-2">
             <div className="col-3">
               <button
@@ -100,9 +125,11 @@ const DrinkDetails = () => {
 
         <div className="row">
           <div className="col-12 text-center">
-            {details && profile && (
-              <DrinkRating drink={details} profile={profile} />
-            )}
+            <div className="d-block">
+              {details && profile && (
+                <StarRating drink={details} profile={profile} />
+              )}
+            </div>
           </div>
         </div>
 
@@ -123,6 +150,19 @@ const DrinkDetails = () => {
               Glass: <strong>{details && details.glass}</strong>
             </h3>
           </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <h3>
+              {allReviews.length > 0 ? "" : "No "}
+              {profile ? "Other User Reviews" : "User Reviews"}
+            </h3>
+          </div>
+        </div>
+        <div className="row mb-4">
+          {allReviews.map((review) => {
+            return <DrinkReview key={review._id} review={review} />;
+          })}
         </div>
       </div>
     </>
