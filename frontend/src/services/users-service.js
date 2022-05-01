@@ -20,3 +20,8 @@ export const getUserBasicInfo = async (userId) => {
   const response = await api.get(`${USERS_API}/basicInfo/${userId}`);
   return response.data;
 }
+
+export const updateEmail = async (updatedEmail) => {
+  const response = await api.put(`${USERS_API}/updateEmail`, updatedEmail);
+  return response.data;
+}
