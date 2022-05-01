@@ -6,13 +6,20 @@ export const renderDateStr = (dateStr) => {
   return `${month}/${day}/${year}`;
 };
 
-export const getAge = (birthday) => {
+export const getAge = (date) => {
   const today = new Date();
-  let age = today.getFullYear() - birthday.getFullYear();
-  const m = today.getMonth() - birthday.getMonth();
-  const d = today.getDate() - birthday.getDate();
+  const dob = new Date(date);
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  const d = today.getDate() - dob.getDate();
   if (m < 0 || (m === 0 && d < 0)) {
       age -= 1;
   }
   return age;
+};
+
+export const getBirthday = (date) => {
+  const dob = new Date(date);
+  const birthday = dob.toLocaleString('en-us', { month: 'long', day: "numeric" });
+  return birthday;
 };
