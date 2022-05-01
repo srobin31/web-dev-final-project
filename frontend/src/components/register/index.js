@@ -26,7 +26,13 @@ const Register = () => {
     ) {
       setError("All fields are required.");
     } else {
-      newUser.dob = new Date(dob);
+      let newUserDob = new Date();
+      let splitDob = dob.split("-");
+      newUserDob.setYear(splitDob[0]);
+      newUserDob.setMonth(parseInt(splitDob[1]) - 1);
+      newUserDob.setDate(splitDob[2]);
+
+      newUser.dob = newUserDob;
       registerUser(dispatch, newUser)
         .then(() => navigate("/profile"))
         .catch((e) =>
