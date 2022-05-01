@@ -42,3 +42,4 @@ export const findUserBasicInfo = (id) =>
 export const registerUser = (user) => usersModel.create(user);
 export const updateUser = (uid, user) =>
   usersModel.updateOne({ _id: uid }, { $set: user });
+export const findAllEmails = () => usersModel.find({}, { email: 1, _id: 0 });
