@@ -38,7 +38,7 @@ const Profile = () => {
     } else {
       fetchProfile();
     }
-  }, [dispatch, params, ]);
+  }, [dispatch, params]);
 
   useEffect(() => {
     setProfile(stateProfile);
@@ -69,15 +69,14 @@ const Profile = () => {
         userId: profile._id,
         email: newEmail,
       };
-      updateEmail(updatedEmail)
-        .then((res) => {
-          if (res.error) {
-            error(res.error);
-          } else {
-            setEditEmail(false);
-            setProfile({ ...profile, email: newEmail });
-          }
-        });
+      updateEmail(updatedEmail).then((res) => {
+        if (res.error) {
+          error(res.error);
+        } else {
+          setEditEmail(false);
+          setProfile({ ...profile, email: newEmail });
+        }
+      });
     }
   };
 
@@ -108,7 +107,11 @@ const Profile = () => {
             }}
           />
           <div className="input-group-append">
-            <button className="btn btn-primary" type="button" onClick={handleEmailChange}>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={handleEmailChange}
+            >
               Save
             </button>
           </div>
@@ -183,7 +186,7 @@ const Profile = () => {
           </div>
         </div>
         {params.uid ? <></> : renderPersonalInfo()}
-        <hr />
+        <hr className={showPersonalInfo ? "mt-0" : ""} />
         {profile && <ReviewedDrinks profile={profile} />}
       </div>
     </>
