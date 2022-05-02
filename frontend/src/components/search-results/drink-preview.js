@@ -8,7 +8,14 @@ const DrinkPreview = ({ drink, profile }) => {
     <div className="col-lg-4 col-md-6 mb-4">
       <div className="card">
         <div className="card-header">
-          <h4 className="mb-0">{drink.name}</h4>
+          <h4 className="mb-0 d-inline">{drink.name}</h4>
+          {drink.alcoholic === "Alcoholic" ? (
+            <h4 className="mb-0 d-inline float-end">
+              <i className="fas fa-cocktail"></i>
+            </h4>
+          ) : (
+            <></>
+          )}
         </div>
         <Link to={`/details/${drink.id}`} state={{ fromSearch: true }}>
           <img

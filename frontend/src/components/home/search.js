@@ -7,9 +7,10 @@ import {
   searchByIngredientApi,
 } from "../../actions/api-actions";
 
-const Search = ({ searchStr = "", cocktailSearch = true }) => {
+const Search = ({ searchStr = "", cocktailSearch = true, profile = {} }) => {
   const [searchString, setSearchString] = useState(searchStr);
   const [searchCocktails, setSearchCocktails] = useState(cocktailSearch);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -41,7 +42,7 @@ const Search = ({ searchStr = "", cocktailSearch = true }) => {
             setSearchString(e.target.value);
           }}
         />
-        <div className="input-group-lg">
+        <div className="input-group-lg input-group-append">
           <button className="btn btn-primary" onClick={handleSearch}>
             Search
           </button>

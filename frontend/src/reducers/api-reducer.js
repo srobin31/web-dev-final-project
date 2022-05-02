@@ -3,35 +3,27 @@ import * as api_actions from "../actions/api-actions";
 const apiReducer = (state = {}, action) => {
   switch (action.type) {
     case api_actions.SEARCH_COCKTAILS:
-      return { ...state, results: filterResults(action.results.drinks) };
+      return { ...state, results: composeResults(action.results.drinks) };
     case api_actions.SEARCH_BY_INGREDIENT:
-      return { ...state, results: filterResults(action.fullResults) };
+      return { ...state, results: composeResults(action.fullResults) };
     case api_actions.COCKTAIL_LOOKUP:
-      return { ...state, details: filterResults(action.details.drinks)[0] };
+      return { ...state, details: composeResults(action.details.drinks)[0] };
     default:
       return state;
   }
 };
 
-const filterResults = (results) => {
-  if (results) {
-    const alcoholic = results.filter(
-      (drink) => drink.strAlcoholic === "Alcoholic"
-    );
-    const normalized = alcoholic.map((drink) => normalizeDetails(drink));
-    return normalized;
-  } else {
-    return [];
-  }
+const composeResults = (results) => {
+  return results ? results.map((drink) => normalizeDetails(drink)) : [];
 };
 
 const normalizeDetails = (drink) => {
   const ingredients = getIngredients(drink);
-  const instructions = drink.strInstructions.split(". ");
+  const instructions = drink.strInstructions.slice(0, -1).split(". ");
   const drinkDetails = {
     id: drink.idDrink,
     name: drink.strDrink,
-    alternate: drink.strDrinkAlternate,
+    alcoholic: drink.strAlcoholic,
     category: drink.strCategory,
     glass: drink.strGlass,
     instructions: instructions,

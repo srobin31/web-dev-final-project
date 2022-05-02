@@ -109,7 +109,7 @@ const Home = () => {
             style={{ transform: "scaleX(-1)" }}
           />
         </div>
-        <Search />
+        <Search profile={profile} />
         <div className="row mt-4">
           <div className="col-12">
             <h3>{profile ? "Your Recent Reviews" : "Featured Users"}</h3>

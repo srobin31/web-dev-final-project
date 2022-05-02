@@ -5,12 +5,15 @@ import {
   updateRating,
 } from "../../services/ratings-service";
 
+import { getAge } from "../../utils/date";
+
 const StarRating = ({ drink, profile }) => {
   const [rating, setRating] = useState({
     userId: profile._id,
     drinkId: drink.id,
     score: 0,
   });
+  const [age, setAge] = useState(-1);
 
   const fetchRating = async () => {
     if (profile) {
@@ -33,15 +36,32 @@ const StarRating = ({ drink, profile }) => {
     fetchRating();
   });
 
+  useEffect(() => {
+    setAge(getAge(profile.dob));
+  }, [profile.dob]);
+
   const renderStar = (pos, lit) => {
     const style = lit ? "fas text-warning" : "far text-muted";
+    const isDisabled =
+      age < 21 && drink.alcoholic === "Alcoholic" ? "disabled" : "";
+    const tooltip = isDisabled ? "Must be 21 to rate alcoholic cocktails" : "";
+    const pointerEvents = isDisabled ? "none" : "all";
+
     return (
-      <i
+      <span
         key={pos}
-        className={`${style} fa-star fa-2x px-1`}
-        role="button"
-        onClick={() => handleRatingChange(pos)}
-      ></i>
+        className="d-inline-block"
+        tabIndex="0"
+        data-toggle="tooltip"
+        title={tooltip}
+      >
+        <i
+          className={`${style} fa-star fa-2x px-1 ${isDisabled}`}
+          role="button"
+          style={{ pointerEvents }}
+          onClick={() => handleRatingChange(pos)}
+        ></i>
+      </span>
     );
   };
 

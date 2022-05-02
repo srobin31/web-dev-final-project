@@ -123,7 +123,7 @@ const Profile = () => {
   const renderPersonalInfo = () => {
     return (
       <div className="row">
-        <div className="col-5">
+        <div className="col-xs-8 col-md-5">
           <p>
             <button
               className="btn btn-info"

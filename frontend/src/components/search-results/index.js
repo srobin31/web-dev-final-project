@@ -57,15 +57,23 @@ const SearchResults = () => {
         <div className="row">
           <div className="col-12 mt-4">
             <Search
-              searchStr={location.search.split("=")[1]}
+              searchStr={location.search.split("=")[1].replace("%20", " ")}
               cocktailSearch={location.search.startsWith("s", 1)}
+              profile={profile}
             />
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-12">
+        <div className="row mb-1">
+          <div className="col-9">
             <h1>Results</h1>
+          </div>
+          <div className="col-3">
+            <div className="h-100 d-flex align-items-end justify-content-end">
+              <h6>
+                <i className="fas fa-cocktail"></i> denotes alcoholic cocktail
+              </h6>
+            </div>
           </div>
         </div>
 
